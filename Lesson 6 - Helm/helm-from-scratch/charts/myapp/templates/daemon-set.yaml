@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: DaemonSet
+metadata: 
+  name: {{.Values.logger.metadata.name}}
+spec:
+  selector:
+    matchLabels:
+      app: {{.Values.logger.metadata.name}}
+  template:
+    metadata:
+      labels:
+        app: {{.Values.logger.metadata.name}}
+    spec:
+      containers:
+        -
+          name: {{.Values.logger.metadata.name}}
+          image: "{{.Values.logger.image.name}}:{{.Values.logger.image.tag}}"
+          command: ["sh", "-c", {{.Values.logger.logCommand | quote}}]
+          env:
+            - 
+              name: {{.Values.secret.metadata.name}}
+              valueFrom:
+                secretKeyRef:
+                  name: {{.Values.secret.metadata.name}}
+                  key: password

@@ -1,0 +1,18 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: {{.Values.cronjob.metadata.name}}
+spec:
+  schedule: {{.Values.cronjob.cron | quote}}
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+            -
+              name: {{.Values.cronjob.metadata.name}}
+              image: "{{.Values.cronjob.image.name}}:{{.Values.cronjob.image.tag}}"
+              command: ["sh", "-c"]
+              args:
+                - {{.Values.cronjob.command | quote}}
+          restartPolicy: OnFailure

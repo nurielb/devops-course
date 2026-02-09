@@ -1,0 +1,6 @@
+~/Projects/git/devops-course/Lesson 6 - Helm/helm-from-scratch/charts % helm history hashicorp1.0
+REVISION	UPDATED                 	STATUS    	CHART          	APP VERSION	DESCRIPTION     
+1       	Sun Feb  8 22:48:01 2026	superseded	http-echo-0.1.0	latest     	Install complete
+2       	Sun Feb  8 22:52:36 2026	superseded	http-echo-0.1.0	latest     	Upgrade complete
+3       	Sun Feb  8 23:02:18 2026	superseded	http-echo-0.1.0	latest     	Upgrade complete
+4       	Sun Feb  8 23:03:17 2026	deployed  	http-echo-0.1.0	latest     	Upgrade complete

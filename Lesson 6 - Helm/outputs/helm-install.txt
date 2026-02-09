@@ -1,0 +1,33 @@
+~/Projects/git/devops-course/Lesson 6 - Helm/helm-from-scratch/charts % kubectl get all
+NAME                             READY   STATUS                       RESTARTS   AGE
+pod/hashicorp-7654878d45-2bdrv   1/1     Running                      0          17s
+pod/hashicorp-7654878d45-sbsfq   1/1     Running                      0          17s
+pod/hashicorp-7654878d45-sclhw   1/1     Running                      0          17s
+pod/logger-ds-xmj49              1/1     Running                      0          17s
+pod/print-env-var-job-q7lht      0/1     CreateContainerConfigError   0          17s
+
+NAME                        TYPE        CLUSTER-IP    EXTERNAL-IP   PORT(S)   AGE
+service/hashicorp-service   ClusterIP   10.96.68.65   <none>        80/TCP    17s
+
+NAME                       DESIRED   CURRENT   READY   UP-TO-DATE   AVAILABLE   NODE SELECTOR   AGE
+daemonset.apps/logger-ds   1         1         1       1            1           <none>          17s
+
+NAME                        READY   UP-TO-DATE   AVAILABLE   AGE
+deployment.apps/hashicorp   3/3     3            3           17s
+
+NAME                                   DESIRED   CURRENT   READY   AGE
+replicaset.apps/hashicorp-7654878d45   3         3         3       17s
+
+NAME                         SCHEDULE    TIMEZONE   SUSPEND   ACTIVE   LAST SCHEDULE   AGE
+cronjob.batch/curr-date-cj   * * * * *   <none>     False     0        <none>          17s
+
+NAME                          STATUS    COMPLETIONS   DURATION   AGE
+job.batch/print-env-var-job   Running   0/1           17s        17s
+~/Projects/git/devops-course/Lesson 6 - Helm/helm-from-scratch/charts % kubectl get configmap
+NAME               DATA   AGE
+config-map         1      27s
+kube-root-ca.crt   1      145m
+~/Projects/git/devops-course/Lesson 6 - Helm/helm-from-scratch/charts % kubectl get secret
+NAME                                 TYPE                 DATA   AGE
+app-secret                           Opaque               1      33s
+sh.helm.release.v1.hashicorp1.0.v1   helm.sh/release.v1   1      33s

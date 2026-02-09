@@ -1,0 +1,11 @@
+apiVersion: v2
+name: http-echo
+description: A Helm chart for hashicorp/http-echo
+type: application
+version: 0.1.0
+appVersion: latest
+
+dependencies:
+  - name: nginx
+    version: 15.5.2
+    repository: https://charts.bitnami.com/bitnami

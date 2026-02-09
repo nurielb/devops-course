@@ -1,0 +1,83 @@
+~/Projects/git/devops-course/Lesson 6 - Helm/helm-from-scratch/charts % helm upgrade hashicorp1.0 ./myapp 
+Release "hashicorp1.0" has been upgraded. Happy Helming!
+NAME: hashicorp1.0
+LAST DEPLOYED: Sun Feb  8 22:52:36 2026
+NAMESPACE: dev
+STATUS: deployed
+REVISION: 2
+DESCRIPTION: Upgrade complete
+TEST SUITE: None
+~/Projects/git/devops-course/Lesson 6 - Helm/helm-from-scratch/charts % kubectl get all
+NAME                              READY   STATUS                       RESTARTS   AGE
+pod/curr-date-cj-29509730-t2z6p   0/1     Completed                    0          2m45s
+pod/curr-date-cj-29509731-bndlm   0/1     Completed                    0          105s
+pod/curr-date-cj-29509732-4pp6b   0/1     Completed                    0          45s
+pod/hashicorp-7654878d45-2bdrv    1/1     Running                      0          4m44s
+pod/hashicorp-7654878d45-sbsfq    1/1     Running                      0          4m44s
+pod/hashicorp-7654878d45-sclhw    1/1     Running                      0          4m44s
+pod/logger-ds-xmj49               1/1     Running                      0          4m44s
+pod/print-env-var-job-q7lht       0/1     CreateContainerConfigError   0          4m44s
+
+NAME                        TYPE        CLUSTER-IP    EXTERNAL-IP   PORT(S)   AGE
+service/hashicorp-service   ClusterIP   10.96.68.65   <none>        80/TCP    4m44s
+
+NAME                       DESIRED   CURRENT   READY   UP-TO-DATE   AVAILABLE   NODE SELECTOR   AGE
+daemonset.apps/logger-ds   1         1         1       1            1           <none>          4m44s
+
+NAME                        READY   UP-TO-DATE   AVAILABLE   AGE
+deployment.apps/hashicorp   3/3     3            3           4m44s
+
+NAME                                   DESIRED   CURRENT   READY   AGE
+replicaset.apps/hashicorp-7654878d45   3         3         3       4m44s
+
+NAME                         SCHEDULE    TIMEZONE   SUSPEND   ACTIVE   LAST SCHEDULE   AGE
+cronjob.batch/curr-date-cj   * * * * *   <none>     False     0        45s             4m44s
+
+NAME                              STATUS     COMPLETIONS   DURATION   AGE
+job.batch/curr-date-cj-29509730   Complete   1/1           4s         2m45s
+job.batch/curr-date-cj-29509731   Complete   1/1           5s         105s
+job.batch/curr-date-cj-29509732   Complete   1/1           4s         45s
+job.batch/print-env-var-job       Running    0/1           4m44s      4m44s
+~/Projects/git/devops-course/Lesson 6 - Helm/helm-from-scratch/charts % kubectl get all
+NAME                              READY   STATUS                       RESTARTS   AGE
+pod/curr-date-cj-29509730-t2z6p   0/1     Completed                    0          3m2s
+pod/curr-date-cj-29509731-bndlm   0/1     Completed                    0          2m2s
+pod/curr-date-cj-29509732-4pp6b   0/1     Completed                    0          62s
+pod/curr-date-cj-29509733-dfzkp   0/1     ContainerCreating            0          2s
+pod/hashicorp-7654878d45-2bdrv    1/1     Running                      0          5m1s
+pod/hashicorp-7654878d45-sbsfq    1/1     Running                      0          5m1s
+pod/hashicorp-7654878d45-sclhw    1/1     Running                      0          5m1s
+pod/logger-ds-xmj49               1/1     Running                      0          5m1s
+pod/print-env-var-job-q7lht       0/1     CreateContainerConfigError   0          5m1s
+
+NAME                        TYPE        CLUSTER-IP    EXTERNAL-IP   PORT(S)   AGE
+service/hashicorp-service   ClusterIP   10.96.68.65   <none>        80/TCP    5m1s
+
+NAME                       DESIRED   CURRENT   READY   UP-TO-DATE   AVAILABLE   NODE SELECTOR   AGE
+daemonset.apps/logger-ds   1         1         1       1            1           <none>          5m1s
+
+NAME                        READY   UP-TO-DATE   AVAILABLE   AGE
+deployment.apps/hashicorp   3/3     3            3           5m1s
+
+NAME                                   DESIRED   CURRENT   READY   AGE
+replicaset.apps/hashicorp-7654878d45   3         3         3       5m1s
+
+NAME                         SCHEDULE    TIMEZONE   SUSPEND   ACTIVE   LAST SCHEDULE   AGE
+cronjob.batch/curr-date-cj   * * * * *   <none>     False     1        2s              5m1s
+
+NAME                              STATUS     COMPLETIONS   DURATION   AGE
+job.batch/curr-date-cj-29509730   Complete   1/1           4s         3m2s
+job.batch/curr-date-cj-29509731   Complete   1/1           5s         2m2s
+job.batch/curr-date-cj-29509732   Complete   1/1           4s         62s
+job.batch/curr-date-cj-29509733   Running    0/1           2s         2s
+job.batch/print-env-var-job       Running    0/1           5m1s       5m1s
+~/Projects/git/devops-course/Lesson 6 - Helm/helm-from-scratch/charts % kubectl get configmap
+NAME               DATA   AGE
+config-map         1      5m16s
+kube-root-ca.crt   1      150m
+~/Projects/git/devops-course/Lesson 6 - Helm/helm-from-scratch/charts % kubectl get secret
+NAME                                 TYPE                 DATA   AGE
+app-secret                           Opaque               1      5m44s
+sh.helm.release.v1.hashicorp1.0.v1   helm.sh/release.v1   1      5m44s
+sh.helm.release.v1.hashicorp1.0.v2   helm.sh/release.v1   1      69s
+~/Projects/git/devops-course/Lesson 6 - Helm/helm-from-scratch/charts % 

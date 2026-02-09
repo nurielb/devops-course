@@ -1,0 +1,56 @@
+deployment:
+  metadata:
+    name: hashicorp
+  replicas: 3
+
+container:
+  port: 5678
+  image: 
+    name: hashicorp/http-echo
+    tag: "0.2.3"
+    # tag: "1.0.0"
+
+service:
+  metadata:
+    name: hashicorp-service
+  port: 80
+  targetPort: 5678
+  type: ClusterIP
+
+messagePrefix: "Hello from helm version"
+
+logger:
+  metadata:
+    name: logger-ds
+  image:
+    name: busybox
+    tag: latest
+  logCommand: "while true; do echo $(hostname); echo \"PASSWORD=${app-secret}\"; sleep 10; done"
+
+cronjob:
+  metadata:
+    name: curr-date-cj
+  image:
+    name: busybox
+    tag: latest
+  command: "echo \"DATE NOW: $(date)\""
+  cron: "* * * * *"
+
+job:
+  metadata:
+    name: print-env-var-job
+  message: "Message"
+  secretKey: PASSWORD
+
+configMap:
+  message: "Hello from config-map!"
+
+secret:
+  metadata:
+    name: app-secret
+  value: "cGFzc3dvcmQ="
+
+nginx:
+  image:
+    repository: bitnami/nginx
+    tag: "latest"
