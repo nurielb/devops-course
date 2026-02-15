@@ -7,7 +7,7 @@ on:
 
 env:
   PYTHON_VERSION: "3.11.14"
-  APP_PATH: "./Final Project/app/backend"
+  APP_PATH: "Final Project/app/backend"
 
 jobs:
   build:
@@ -33,7 +33,7 @@ jobs:
 
       -
         name: Install dependencies
-        run: pip install -r ${{ env.APP_PATH }}/requirements.txt
+        run: pip install -r "${{ env.APP_PATH }}/requirements.txt"
 
       -
         name: Login to Docker Hub
