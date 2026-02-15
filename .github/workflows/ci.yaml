@@ -4,15 +4,33 @@ on:
   push:
     branches:
       - dev
+      - main
 
 env:
   PYTHON_VERSION: "3.11.14"
   APP_PATH: "Final Project/app/backend"
+  DOCKER_IMAGE_TAG: ""
 
 jobs:
   build:
     runs-on: ${{ vars.FINAL_PROJECT_BASE_IMAGE }}
     steps:
+
+      - 
+        name: Checkout repository branch
+        uses: actions/checkout@v4
+
+      - 
+        name: Set Image Tag
+        run: |
+          SHORT_SHA=${GITHUB_SHA::7}
+          BRANCH=${GITHUB_REF_NAME}
+
+          if [ "$BRANCH" = "main" ]; then
+            echo "IMAGE_TAG=prod-$SHORT_SHA" >> $GITHUB_ENV
+          else
+            echo "IMAGE_TAG=$BRANCH-$SHORT_SHA" >> $GITHUB_ENV
+          fi
 
       -
         name: Display variables
