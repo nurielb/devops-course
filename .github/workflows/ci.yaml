@@ -12,15 +12,15 @@ env:
 
 jobs:
   build:
-    runs-on: $BASE_IMAGE
+    runs-on: ${{ env.BASE_IMAGE }}
     steps:
 
       -
         name: Display variables
         run: |
-          echo "BASE_IMAGE: $BASE_IMAGE"
+          echo "BASE_IMAGE: ${{ env.BASE_IMAGE }}"
           echo "PYTHON_VERSION: $PYTHON_VERSION"
-          echo "APP_PATH: $APP_PATH"
+          echo "APP_PATH: ${{ env.APP_PATH }}"
 
       - 
         name: Checkout repository branch
@@ -30,7 +30,7 @@ jobs:
         name: Setup Python
         uses: actions/setup-python@v5
         with:
-          python-version: $PYTHON_VERSION
+          python-version: "{{ $env.PYTHON_VERSION }}"
 
       -
         name: Install dependencies
