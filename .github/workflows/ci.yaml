@@ -27,9 +27,9 @@ jobs:
           BRANCH=${GITHUB_REF_NAME}
 
           if [ "$BRANCH" = "main" ]; then
-            echo "IMAGE_TAG=prod-$SHORT_SHA" >> $GITHUB_ENV
+            echo "DOCKER_IMAGE_TAG=prod-$SHORT_SHA" >> $GITHUB_ENV
           else
-            echo "IMAGE_TAG=$BRANCH-$SHORT_SHA" >> $GITHUB_ENV
+            echo "DOCKER_IMAGE_TAG=$BRANCH-$SHORT_SHA" >> $GITHUB_ENV
           fi
 
       -
@@ -38,6 +38,7 @@ jobs:
           echo "BASE_IMAGE: ${{ vars.FINAL_PROJECT_BASE_IMAGE }}"
           echo "PYTHON_VERSION: ${{ env.PYTHON_VERSION }}"
           echo "APP_PATH: ${{ env.APP_PATH }}"
+          echo "DOCKER_IMAGE_TAG: ${{ env.DOCKER_IMAGE_TAG }}"
 
       - 
         name: Checkout repository branch
