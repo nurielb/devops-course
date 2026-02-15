@@ -6,20 +6,19 @@ on:
       - dev
 
 env:
-  BASE_IMAGE: "ubuntu-latest"
-  PYTHON_VERSION: "3.11"
+  PYTHON_VERSION: "3.11.14"
   APP_PATH: "./Final Project/app/backend"
 
 jobs:
   build:
-    runs-on: ${{ env.BASE_IMAGE }}
+    runs-on: ${{ vars.FINAL_PROJECT_BASE_IMAGE }}
     steps:
 
       -
         name: Display variables
         run: |
-          echo "BASE_IMAGE: ${{ env.BASE_IMAGE }}"
-          echo "PYTHON_VERSION: $PYTHON_VERSION"
+          echo "BASE_IMAGE: ${{ vars.FINAL_PROJECT_BASE_IMAGE }}"
+          echo "PYTHON_VERSION: ${{ env.PYTHON_VERSION }}"
           echo "APP_PATH: ${{ env.APP_PATH }}"
 
       - 
@@ -30,11 +29,11 @@ jobs:
         name: Setup Python
         uses: actions/setup-python@v5
         with:
-          python-version: "{{ $env.PYTHON_VERSION }}"
+          python-version: ${{ env.PYTHON_VERSION }}
 
       -
         name: Install dependencies
-        run: pip install -r $APP_PATH/requirements.txt
+        run: pip install -r ${{ env.APP_PATH }}/requirements.txt
 
       -
         name: Login to Docker Hub
@@ -51,7 +50,7 @@ jobs:
         name: Build and Push image
         uses: docker/build-push-action@v6
         with:
-          context: $APP_PATH
+          context: ${{ env.APP_PATH }}
           push: true
           tags: ${{ vars.DOCKERHUB_USERNAME }}/final-project-backend:latest
           platforms: linux/amd64,linux/arm64
